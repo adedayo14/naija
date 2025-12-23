@@ -12,6 +12,7 @@ export default function ItemCard({ item, onClaim }: ItemCardProps) {
   const [name, setName] = useState('');
   const [claiming, setClaiming] = useState(false);
   const [error, setError] = useState('');
+  const [showClaimForm, setShowClaimForm] = useState(false);
 
   const handleClaim = async () => {
     if (!name.trim()) {
@@ -28,53 +29,123 @@ export default function ItemCard({ item, onClaim }: ItemCardProps) {
       setError(result.error || 'Failed to claim item');
       setClaiming(false);
     }
-    // On success, the parent component will remove this card from the list
   };
 
   return (
-    <div className="border rounded-lg p-4 flex flex-col gap-3">
-      <div className="aspect-square w-full bg-gray-100 rounded overflow-hidden">
+    <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+      {/* Image Container */}
+      <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <img
           src={item.imagePath}
           alt={item.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      <div>
-        <h3 className="font-semibold text-lg">{item.title}</h3>
-        {item.description && (
-          <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-        )}
-      </div>
-
-      <div className="flex gap-2 text-sm text-gray-700">
-        <span className="bg-gray-100 px-2 py-1 rounded">Size: {item.size}</span>
-        <span className="bg-gray-100 px-2 py-1 rounded capitalize">{item.category}</span>
-        <span className="bg-gray-100 px-2 py-1 rounded">{item.weightKg}kg</span>
-      </div>
-
-      <div className="mt-2">
-        <input
-          type="text"
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 border rounded mb-2"
-          disabled={claiming}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 
-        {error && (
-          <p className="text-red-600 text-sm mb-2">{error}</p>
-        )}
+        {/* Gradient Overlay on Hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-        <button
-          onClick={handleClaim}
-          disabled={claiming}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          {claiming ? 'Claiming...' : 'Claim'}
-        </button>
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur-sm text-gray-900 shadow-lg capitalize">
+            {item.category}
+          </span>
+        </div>
+
+        {/* Weight Badge */}
+        <div className="absolute top-3 right-3">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/90 backdrop-blur-sm text-white shadow-lg">
+            {item.weightKg}kg
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 space-y-3">
+        <div>
+          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+            {item.title}
+          </h3>
+          {item.description && (
+            <p className="text-sm text-gray-600 mt-1 line-clamp-2">{item.description}</p>
+          )}
+        </div>
+
+        {/* Size Info */}
+        <div className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+          <span className="text-sm font-medium text-gray-700">Size {item.size}</span>
+        </div>
+
+        {/* Claim Section */}
+        {!showClaimForm ? (
+          <button
+            onClick={() => setShowClaimForm(true)}
+            className="w-full mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Claim This Item
+          </button>
+        ) : (
+          <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={claiming}
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all disabled:bg-gray-50 disabled:cursor-not-allowed"
+            />
+
+            {error && (
+              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg animate-in fade-in slide-in-from-top-1">
+                <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm text-red-700 font-medium">{error}</p>
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                onClick={handleClaim}
+                disabled={claiming}
+                className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                {claiming ? (
+                  <>
+                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Claiming...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Confirm
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => {
+                  setShowClaimForm(false);
+                  setError('');
+                  setName('');
+                }}
+                disabled={claiming}
+                className="px-4 py-3 border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
