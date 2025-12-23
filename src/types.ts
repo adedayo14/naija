@@ -1,0 +1,40 @@
+export type Category = 'tshirt' | 'shirt' | 'trousers' | 'shoes' | 'other';
+
+export interface Item {
+  id: string;              // 'item-001' etc
+  title: string;           // 'Blue Uniqlo T-shirt'
+  description?: string;
+  size: string;            // 'M', 'UK 10', '32x32', etc.
+  category: Category;
+  imagePath: string;       // '/items/uniqlo-blue-tshirt-m.jpg'
+  weightKg: number;        // shipping weight
+  createdAt: string;       // ISO
+  claimedBy?: string;      // undefined if not claimed
+  claimedAt?: string;      // undefined if not claimed
+}
+
+export type ShippingConfig = {
+  tshirt: number;
+  shirt: number;
+  trousers: number;
+  shoes: number;
+  other: number;
+};
+
+// Default weights by category (in kg)
+export const DEFAULT_WEIGHTS: Record<Category, number> = {
+  tshirt: 0.20,
+  shirt: 0.30,
+  trousers: 0.50,
+  shoes: 0.90,
+  other: 0.40,
+};
+
+// Default shipping prices (in £)
+export const DEFAULT_SHIPPING_CONFIG: ShippingConfig = {
+  tshirt: 1.0,
+  shirt: 1.0,
+  trousers: 1.5,
+  shoes: 2.0,
+  other: 1.0,
+};
