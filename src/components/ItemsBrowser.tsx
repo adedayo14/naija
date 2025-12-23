@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { Item, Category, ShippingConfig } from '@/types';
+import { Item, Category, ShippingConfig, POINTS_BUDGET } from '@/types';
 import ItemCard from './ItemCard';
 import FiltersBar from './FiltersBar';
 import ClaimedItemsPanel from './ClaimedItemsPanel';
@@ -163,7 +163,12 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredItems.map((item) => (
-            <ItemCard key={item.id} item={item} onClaim={handleClaim} />
+            <ItemCard
+              key={item.id}
+              item={item}
+              pointsCost={shippingConfig ? shippingConfig[item.category] : 0}
+              onClaim={handleClaim}
+            />
           ))}
         </div>
       )}

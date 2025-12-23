@@ -5,10 +5,11 @@ import { useState } from 'react';
 
 interface ItemCardProps {
   item: Item;
+  pointsCost: number;
   onClaim: (itemId: string, name: string) => Promise<{ success: boolean; error?: string }>;
 }
 
-export default function ItemCard({ item, onClaim }: ItemCardProps) {
+export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
   const [name, setName] = useState('');
   const [claiming, setClaiming] = useState(false);
   const [error, setError] = useState('');
@@ -71,11 +72,19 @@ export default function ItemCard({ item, onClaim }: ItemCardProps) {
         </div>
 
         {/* Size Info */}
-        <div className="flex items-center gap-2">
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-          </svg>
-          <span className="text-sm font-medium text-gray-700">Size {item.size}</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+            <span className="text-sm font-medium text-gray-700">Size {item.size}</span>
+          </div>
+          <div className="flex items-center gap-1 text-emerald-700 font-bold text-sm">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{pointsCost.toLocaleString()} pts</span>
+          </div>
         </div>
 
         {/* Claim Section */}

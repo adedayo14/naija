@@ -30,11 +30,14 @@ export const DEFAULT_WEIGHTS: Record<Category, number> = {
   other: 0.40,
 };
 
-// Default shipping prices (in £)
+// Default points cost per category
 export const DEFAULT_SHIPPING_CONFIG: ShippingConfig = {
-  tshirt: 1.0,
-  shirt: 1.0,
-  trousers: 1.5,
-  shoes: 2.0,
-  other: 1.0,
+  tshirt: 1000,
+  shirt: 1500,
+  trousers: 2000,
+  shoes: 2500,
+  other: 1200,
 };
+
+// Points budget per user
+export const POINTS_BUDGET = 20000;

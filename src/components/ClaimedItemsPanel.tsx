@@ -1,6 +1,6 @@
 'use client';
 
-import { Item, ShippingConfig } from '@/types';
+import { Item, ShippingConfig, POINTS_BUDGET } from '@/types';
 
 interface ClaimedItemsPanelProps {
   claimedItems: Item[];
@@ -13,9 +13,10 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
   }
 
   const totalWeight = claimedItems.reduce((sum, item) => sum + item.weightKg, 0);
-  const totalShipping = shippingConfig
+  const totalPoints = shippingConfig
     ? claimedItems.reduce((sum, item) => sum + shippingConfig[item.category], 0)
     : 0;
+  const remainingPoints = POINTS_BUDGET - totalPoints;
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 border-2 border-emerald-200 shadow-xl mb-8 animate-in slide-in-from-top duration-500">
@@ -81,9 +82,9 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
                     {shippingConfig && (
                       <span className="flex items-center gap-1 text-emerald-700 font-semibold">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        £{shippingConfig[item.category].toFixed(2)}
+                        {shippingConfig[item.category].toLocaleString()} pts
                       </span>
                     )}
                   </div>
@@ -102,14 +103,16 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
             </div>
 
             <div className="text-center sm:text-left">
-              <div className="text-emerald-100 text-sm font-medium mb-1">Total Weight</div>
-              <div className="text-3xl font-bold">{totalWeight.toFixed(2)} <span className="text-xl">kg</span></div>
+              <div className="text-emerald-100 text-sm font-medium mb-1">Points Used</div>
+              <div className="text-3xl font-bold">{totalPoints.toLocaleString()}</div>
             </div>
 
             {shippingConfig && (
               <div className="text-center sm:text-left">
-                <div className="text-emerald-100 text-sm font-medium mb-1">Estimated Shipping</div>
-                <div className="text-3xl font-bold">£{totalShipping.toFixed(2)}</div>
+                <div className="text-emerald-100 text-sm font-medium mb-1">Points Remaining</div>
+                <div className={`text-3xl font-bold ${remainingPoints < 0 ? 'text-red-300' : ''}`}>
+                  {remainingPoints.toLocaleString()}
+                </div>
               </div>
             )}
           </div>
@@ -120,8 +123,8 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>
-                These items are now reserved for you! The shipping cost above is an estimate based on item categories.
-                Keep browsing to add more items to your collection.
+                These items are reserved for you! You have a budget of {POINTS_BUDGET.toLocaleString()} points total.
+                {remainingPoints < 0 && ' ⚠️ You have exceeded your points budget.'}
               </span>
             </p>
           </div>
