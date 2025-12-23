@@ -55,7 +55,7 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
     return filtered;
   }, [items, categoryFilter, sizeFilter, sortBy]);
 
-  const handleClaim = async (itemId: string, name: string): Promise<{ success: boolean; error?: string }> {
+  const handleClaim = async (itemId: string, name: string) => {
     try {
       const response = await fetch('/api/claim', {
         method: 'POST',
