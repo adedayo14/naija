@@ -3,6 +3,7 @@ import { Item } from '@/types';
 import ItemsBrowser from '@/components/ItemsBrowser';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function Home() {
   // Load all items from KV
