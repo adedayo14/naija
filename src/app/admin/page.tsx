@@ -267,17 +267,17 @@ export default function AdminPage() {
         {/* Shipping Settings */}
         {shippingConfig && (
           <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-neutral-900 mb-4">Shipping Prices (£)</h2>
+            <h2 className="text-xl font-semibold text-neutral-900 mb-4">Points Cost per Category</h2>
             <form onSubmit={handleSaveShipping} className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-neutral-600">T-shirt</label>
                   <input
                     type="number"
-                    step="0.01"
+                    step="1"
                     min="0"
                     value={shippingConfig.tshirt}
-                    onChange={(e) => setShippingConfig({ ...shippingConfig, tshirt: parseFloat(e.target.value) })}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, tshirt: parseInt(e.target.value) || 0 })}
                     className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
                   />
                 </div>
@@ -285,10 +285,10 @@ export default function AdminPage() {
                   <label className="text-xs font-semibold text-neutral-600">Shirt</label>
                   <input
                     type="number"
-                    step="0.01"
+                    step="1"
                     min="0"
                     value={shippingConfig.shirt}
-                    onChange={(e) => setShippingConfig({ ...shippingConfig, shirt: parseFloat(e.target.value) })}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, shirt: parseInt(e.target.value) || 0 })}
                     className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
                   />
                 </div>
@@ -296,10 +296,10 @@ export default function AdminPage() {
                   <label className="text-xs font-semibold text-neutral-600">Trousers</label>
                   <input
                     type="number"
-                    step="0.01"
+                    step="1"
                     min="0"
                     value={shippingConfig.trousers}
-                    onChange={(e) => setShippingConfig({ ...shippingConfig, trousers: parseFloat(e.target.value) })}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, trousers: parseInt(e.target.value) || 0 })}
                     className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
                   />
                 </div>
@@ -307,10 +307,10 @@ export default function AdminPage() {
                   <label className="text-xs font-semibold text-neutral-600">Shoes</label>
                   <input
                     type="number"
-                    step="0.01"
+                    step="1"
                     min="0"
                     value={shippingConfig.shoes}
-                    onChange={(e) => setShippingConfig({ ...shippingConfig, shoes: parseFloat(e.target.value) })}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, shoes: parseInt(e.target.value) || 0 })}
                     className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
                   />
                 </div>
@@ -318,10 +318,10 @@ export default function AdminPage() {
                   <label className="text-xs font-semibold text-neutral-600">Other</label>
                   <input
                     type="number"
-                    step="0.01"
+                    step="1"
                     min="0"
                     value={shippingConfig.other}
-                    onChange={(e) => setShippingConfig({ ...shippingConfig, other: parseFloat(e.target.value) })}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, other: parseInt(e.target.value) || 0 })}
                     className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
                   />
                 </div>
