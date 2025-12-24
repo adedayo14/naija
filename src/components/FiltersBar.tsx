@@ -7,6 +7,8 @@ interface FiltersBarProps {
   onCategoryChange: (category: Category | 'all') => void;
   sizeFilter: string;
   onSizeChange: (size: string) => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
   sortBy: 'default' | 'name' | 'weight';
   onSortChange: (sort: 'default' | 'name' | 'weight') => void;
 }
@@ -23,11 +25,15 @@ const categories = [
   { value: 'other', label: 'Other', icon: '✨' },
 ];
 
+const sizes = ['S', 'M', 'L', 'XL', '32', '34', '36'];
+
 export default function FiltersBar({
   categoryFilter,
   onCategoryChange,
   sizeFilter,
   onSizeChange,
+  searchQuery,
+  onSearchChange,
   sortBy,
   onSortChange,
 }: FiltersBarProps) {
@@ -67,12 +73,54 @@ export default function FiltersBar({
         </div>
       </div>
 
+      {/* Size Filter Buttons */}
+      <div>
+        <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2 sm:mb-3">
+          Filter by Size
+        </label>
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => onSizeChange('')}
+            className={`
+              inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-xs sm:text-sm
+              transition-all duration-200 active:scale-95 sm:hover:scale-105
+              ${
+                sizeFilter === ''
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
+                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-500 hover:text-blue-700 shadow-sm'
+              }
+            `}
+          >
+            All Sizes
+          </button>
+          {sizes.map((size) => (
+            <button
+              key={size}
+              type="button"
+              onClick={() => onSizeChange(size)}
+              className={`
+                inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-xs sm:text-sm
+                transition-all duration-200 active:scale-95 sm:hover:scale-105
+                ${
+                  sizeFilter === size
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
+                    : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-500 hover:text-blue-700 shadow-sm'
+                }
+              `}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Search & Sort Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Size Search */}
+        {/* Search */}
         <div className="relative">
-          <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
-            Search by Size
+          <label htmlFor="search-input" className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
+            Search Items
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
@@ -81,16 +129,18 @@ export default function FiltersBar({
               </svg>
             </div>
             <input
+              id="search-input"
               type="text"
-              placeholder="e.g., M, L, UK 10, 32x32..."
-              value={sizeFilter}
-              onChange={(e) => onSizeChange(e.target.value)}
-              className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder:text-gray-400 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm"
+              placeholder="Search by name, brand, description..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="w-full pl-10 sm:pl-12 pr-10 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder:text-gray-400 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm"
             />
-            {sizeFilter && (
+            {searchQuery && (
               <button
                 type="button"
-                onClick={() => onSizeChange('')}
+                onClick={() => onSearchChange('')}
+                aria-label="Clear search"
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,7 +153,7 @@ export default function FiltersBar({
 
         {/* Sort Dropdown */}
         <div>
-          <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
+          <label htmlFor="sort-select" className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
             Sort Items
           </label>
           <div className="relative">
@@ -113,6 +163,7 @@ export default function FiltersBar({
               </svg>
             </div>
             <select
+              id="sort-select"
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value as 'default' | 'name' | 'weight')}
               className="w-full pl-10 sm:pl-12 pr-10 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm appearance-none cursor-pointer"

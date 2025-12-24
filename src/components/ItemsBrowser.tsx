@@ -26,6 +26,7 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
   // Filters and sorting
   const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all');
   const [sizeFilter, setSizeFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'default' | 'name' | 'weight'>('default');
 
   // Load shipping config on mount
@@ -53,6 +54,16 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
       );
     }
 
+    // Search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(item =>
+        item.title.toLowerCase().includes(query) ||
+        item.description?.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+      );
+    }
+
     // Sorting
     if (sortBy === 'name') {
       filtered.sort((a, b) => a.title.localeCompare(b.title));
@@ -61,7 +72,7 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
     }
 
     return filtered;
-  }, [items, categoryFilter, sizeFilter, sortBy]);
+  }, [items, categoryFilter, sizeFilter, searchQuery, sortBy]);
 
   const handleClaim = async (itemId: string, name: string) => {
     try {
@@ -112,24 +123,28 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
           onCategoryChange={setCategoryFilter}
           sizeFilter={sizeFilter}
           onSizeChange={setSizeFilter}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
           sortBy={sortBy}
           onSortChange={setSortBy}
         />
       </div>
 
       {/* Results Count */}
-      {(categoryFilter !== 'all' || sizeFilter) && (
+      {(categoryFilter !== 'all' || sizeFilter || searchQuery) && (
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
           <p className="text-xs sm:text-sm text-gray-600">
             Showing <span className="font-semibold text-gray-900">{filteredItems.length}</span> {filteredItems.length === 1 ? 'item' : 'items'}
             {categoryFilter !== 'all' && <span> in <span className="capitalize font-medium">{categoryFilter}s</span></span>}
-            {sizeFilter && <span> matching <span className="font-medium">"{sizeFilter}"</span></span>}
+            {sizeFilter && <span> • Size <span className="font-medium">{sizeFilter}</span></span>}
+            {searchQuery && <span> • Matching <span className="font-medium">"{searchQuery}"</span></span>}
           </p>
           <button
             type="button"
             onClick={() => {
               setCategoryFilter('all');
               setSizeFilter('');
+              setSearchQuery('');
               setSortBy('default');
             }}
             className="text-xs sm:text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 active:gap-2 sm:hover:gap-2 transition-all"
@@ -152,16 +167,17 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
           </div>
           <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No items found</h3>
           <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-            {categoryFilter !== 'all' || sizeFilter
+            {categoryFilter !== 'all' || sizeFilter || searchQuery
               ? 'Try adjusting your filters to see more items.'
               : 'Check back soon for new items!'}
           </p>
-          {(categoryFilter !== 'all' || sizeFilter) && (
+          {(categoryFilter !== 'all' || sizeFilter || searchQuery) && (
             <button
               type="button"
               onClick={() => {
                 setCategoryFilter('all');
                 setSizeFilter('');
+                setSearchQuery('');
               }}
               className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-lg"
             >
