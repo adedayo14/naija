@@ -532,12 +532,10 @@ export default function AdminPage() {
                           <span className="capitalize">{item.category}</span>
                           <span>•</span>
                           <span>{item.weightKg}kg</span>
-                          {shippingConfig && (
-                            <>
-                              <span>•</span>
-                              <span>Shipping: £{shippingConfig[item.category].toFixed(2)}</span>
-                            </>
-                          )}
+                          <>
+                            <span>•</span>
+                            <span>Shipping: £{(item.weightKg * 5.50).toFixed(2)}</span>
+                          </>
                         </div>
                         {item.claimedBy && (
                           <p className="mt-2 text-sm font-semibold text-emerald-700">
@@ -587,6 +585,7 @@ export default function AdminPage() {
 
                   return Object.entries(userGroups).map(([userName, userItems]) => {
                     const totalPoints = userItems.reduce((sum, i) => sum + shippingConfig[i.category], 0);
+                    const totalShipping = userItems.reduce((sum, i) => sum + (i.weightKg * 5.50), 0);
                     const isOverBudget = totalPoints > POINTS_BUDGET;
 
                     return (
@@ -594,7 +593,7 @@ export default function AdminPage() {
                         <div className="flex justify-between items-center">
                           <div>
                             <p className="font-semibold">{userName}</p>
-                            <p className="text-xs text-gray-600">{userItems.length} items</p>
+                            <p className="text-xs text-gray-600">{userItems.length} items • £{totalShipping.toFixed(2)} shipping</p>
                           </div>
                           <div className="text-right">
                             <p className={`font-bold ${isOverBudget ? 'text-red-600' : 'text-gray-900'}`}>
@@ -628,6 +627,12 @@ export default function AdminPage() {
                   <span>Total Points:</span>
                   <span className="font-semibold">
                     {items.filter(i => i.claimedBy).reduce((sum, i) => sum + shippingConfig[i.category], 0)}
+                  </span>
+                </div>
+                <div className="flex justify-between border-t pt-2 mt-2">
+                  <span className="font-semibold">Total Shipping Cost:</span>
+                  <span className="font-bold text-lg text-emerald-700">
+                    £{items.filter(i => i.claimedBy).reduce((sum, i) => sum + (i.weightKg * 5.50), 0).toFixed(2)}
                   </span>
                 </div>
               </div>
