@@ -739,7 +739,7 @@ export default function AdminPage() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex gap-4 flex-1">
                             <img
-                              src={item.imagePath}
+                              src={item.imagePath.split('/').map((part, i) => i === 0 ? part : encodeURIComponent(part)).join('/')}
                               alt={item.title}
                               className="w-20 h-20 object-cover rounded"
                             />

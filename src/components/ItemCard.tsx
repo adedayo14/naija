@@ -37,7 +37,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
       {/* Image Container */}
       <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <img
-          src={item.imagePath}
+          src={item.imagePath.split('/').map((part, i) => i === 0 ? part : encodeURIComponent(part)).join('/')}
           alt={item.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />

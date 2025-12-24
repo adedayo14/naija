@@ -57,7 +57,7 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
               <div className="flex gap-3">
                 <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
                   <img
-                    src={item.imagePath}
+                    src={item.imagePath.split('/').map((part, i) => i === 0 ? part : encodeURIComponent(part)).join('/')}
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />
