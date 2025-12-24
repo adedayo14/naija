@@ -38,15 +38,15 @@ export default function FiltersBar({
         <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2 sm:mb-3">
           Browse by Category
         </label>
-        <div className="flex flex-wrap gap-2 sm:gap-2.5">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2.5">
           {categories.map((cat) => (
             <button
               key={cat.value}
               type="button"
               onClick={() => onCategoryChange(cat.value as Category | 'all')}
               className={`
-                inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm
-                transition-all duration-200 active:scale-95 sm:hover:scale-105
+                inline-flex items-center gap-1 sm:gap-2 px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm
+                transition-all duration-200 active:scale-95 sm:hover:scale-105 whitespace-nowrap
                 ${
                   categoryFilter === cat.value
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
@@ -54,10 +54,11 @@ export default function FiltersBar({
                 }
               `}
             >
-              <span className="text-base">{cat.icon}</span>
-              <span>{cat.label}</span>
+              <span className="text-sm sm:text-base">{cat.icon}</span>
+              <span className="hidden xs:inline sm:inline">{cat.label}</span>
+              <span className="xs:hidden sm:hidden">{cat.label.split(' ')[0]}</span>
               {categoryFilter === cat.value && (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               )}

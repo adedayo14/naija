@@ -48,5 +48,5 @@ export const DEFAULT_SHIPPING_CONFIG: ShippingConfig = {
   other: 500,     // 0.40kg = £2.20
 };
 
-// Points budget per user (5000 pts = ~4.5kg = ~£25)
+// Points budget per user
 export const POINTS_BUDGET = 5000;
