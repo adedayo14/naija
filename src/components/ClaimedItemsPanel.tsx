@@ -23,25 +23,25 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
       {/* Decorative Background Pattern */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM2ODJlZiIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
 
-      <div className="relative p-6 sm:p-8">
+      <div className="relative p-4 sm:p-6 md:p-8">
         {/* Header */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex-shrink-0 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+              <svg className="w-5 sm:w-6 h-5 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-blue-900">Your Claimed Items</h2>
-              <p className="text-sm text-blue-700 mt-0.5">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-900">Your Claimed Items</h2>
+              <p className="text-xs sm:text-sm text-blue-700 mt-0.5">
                 {claimedItems.length} {claimedItems.length === 1 ? 'item' : 'items'} reserved
               </p>
             </div>
           </div>
 
-          <div className="flex-shrink-0 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-blue-300 shadow-sm">
-            <span className="text-sm font-semibold text-blue-900">
+          <div className="flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/80 backdrop-blur-sm border border-blue-300 shadow-sm">
+            <span className="text-xs sm:text-sm font-semibold text-blue-900">
               🎉 Success!
             </span>
           </div>
@@ -95,31 +95,31 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
         </div>
 
         {/* Summary */}
-        <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-lg">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
+        <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-4 sm:p-6 shadow-lg">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 text-white">
             <div className="text-center sm:text-left">
-              <div className="text-blue-100 text-sm font-medium mb-1">Total Items</div>
-              <div className="text-3xl font-bold">{claimedItems.length}</div>
+              <div className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Total Items</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold">{claimedItems.length}</div>
             </div>
 
             <div className="text-center sm:text-left">
-              <div className="text-blue-100 text-sm font-medium mb-1">Points Used</div>
-              <div className="text-3xl font-bold">{totalPoints.toLocaleString()}</div>
+              <div className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Points Used</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold">{totalPoints.toLocaleString()}</div>
             </div>
 
             {shippingConfig && (
               <div className="text-center sm:text-left">
-                <div className="text-blue-100 text-sm font-medium mb-1">Points Remaining</div>
-                <div className={`text-3xl font-bold ${remainingPoints < 0 ? 'text-red-300' : ''}`}>
+                <div className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Remaining</div>
+                <div className={`text-xl sm:text-2xl md:text-3xl font-bold ${remainingPoints < 0 ? 'text-red-300' : ''}`}>
                   {remainingPoints.toLocaleString()}
                 </div>
               </div>
             )}
           </div>
 
-          <div className="mt-6 pt-6 border-t border-white/20">
-            <p className="text-blue-50 text-sm flex items-start gap-2">
-              <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/20">
+            <p className="text-blue-50 text-xs sm:text-sm flex items-start gap-2">
+              <svg className="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>

@@ -1,4 +1,4 @@
-export type Category = 'tshirt' | 'shirt' | 'trousers' | 'shoes' | 'other';
+export type Category = 'tshirt' | 'shirt' | 'trousers' | 'jeans' | 'cardigan' | 'shoes' | 'other';
 
 export interface Item {
   id: string;              // 'item-001' etc
@@ -17,6 +17,8 @@ export type ShippingConfig = {
   tshirt: number;
   shirt: number;
   trousers: number;
+  jeans: number;
+  cardigan: number;
   shoes: number;
   other: number;
 };
@@ -26,6 +28,8 @@ export const DEFAULT_WEIGHTS: Record<Category, number> = {
   tshirt: 0.20,
   shirt: 0.30,
   trousers: 0.50,
+  jeans: 0.55,
+  cardigan: 0.35,
   shoes: 0.90,
   other: 0.40,
 };
@@ -35,6 +39,8 @@ export const DEFAULT_SHIPPING_CONFIG: ShippingConfig = {
   tshirt: 1000,
   shirt: 1500,
   trousers: 2000,
+  jeans: 2000,
+  cardigan: 1500,
   shoes: 2500,
   other: 1200,
 };

@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Size is required' }, { status: 400 });
     }
 
-    if (!category || !['tshirt', 'shirt', 'trousers', 'shoes', 'other'].includes(category)) {
+    if (!category || !['tshirt', 'shirt', 'trousers', 'jeans', 'cardigan', 'shoes', 'other'].includes(category)) {
       return NextResponse.json({ error: 'Valid category is required' }, { status: 400 });
     }
 

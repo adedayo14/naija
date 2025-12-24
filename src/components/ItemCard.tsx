@@ -61,26 +61,26 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-5 space-y-3">
+      <div className="p-4 sm:p-5 space-y-2 sm:space-y-3">
         <div>
-          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h3 className="font-bold text-base sm:text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {item.title}
           </h3>
           {item.description && (
-            <p className="text-sm text-gray-600 mt-1 line-clamp-2">{item.description}</p>
+            <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">{item.description}</p>
           )}
         </div>
 
         {/* Size Info */}
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
             </svg>
-            <span className="text-sm font-medium text-gray-700">Size {item.size}</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700">Size {item.size}</span>
           </div>
-          <div className="flex items-center gap-1 text-blue-700 font-bold text-sm">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center gap-1 text-blue-700 font-bold text-xs sm:text-sm">
+            <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>{pointsCost.toLocaleString()} pts</span>
@@ -91,30 +91,30 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
         {!showClaimForm ? (
           <button
             onClick={() => setShowClaimForm(true)}
-            className="w-full mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            className="w-full mt-3 sm:mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg sm:transform sm:hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             Claim This Item
           </button>
         ) : (
-          <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="mt-3 sm:mt-4 space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
             <input
               type="text"
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={claiming}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all disabled:bg-gray-50 disabled:cursor-not-allowed"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all disabled:bg-gray-50 disabled:cursor-not-allowed"
             />
 
             {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg animate-in fade-in slide-in-from-top-1">
-                <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-2 p-2.5 sm:p-3 bg-red-50 border border-red-200 rounded-lg animate-in fade-in slide-in-from-top-1">
+                <svg className="w-4 sm:w-5 h-4 sm:h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p className="text-sm text-red-700 font-medium">{error}</p>
+                <p className="text-xs sm:text-sm text-red-700 font-medium">{error}</p>
               </div>
             )}
 
@@ -122,19 +122,20 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
               <button
                 onClick={handleClaim}
                 disabled={claiming}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 text-white font-semibold py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base"
               >
                 {claiming ? (
                   <>
-                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-4 sm:w-5 h-4 sm:h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Claiming...
+                    <span className="hidden sm:inline">Claiming...</span>
+                    <span className="sm:hidden">...</span>
                   </>
                 ) : (
                   <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Confirm
@@ -142,13 +143,14 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
                 )}
               </button>
               <button
+                type="button"
                 onClick={() => {
                   setShowClaimForm(false);
                   setError('');
                   setName('');
                 }}
                 disabled={claiming}
-                className="px-4 py-3 border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-gray-200 hover:border-gray-300 active:scale-95 text-gray-700 font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               >
                 Cancel
               </button>
