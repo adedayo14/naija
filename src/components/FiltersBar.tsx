@@ -18,6 +18,7 @@ const categories = [
   { value: 'trousers', label: 'Trousers', icon: '👖' },
   { value: 'jeans', label: 'Jeans', icon: '👖' },
   { value: 'cardigan', label: 'Cardigans', icon: '🧥' },
+  { value: 'jacket', label: 'Jackets', icon: '🧥' },
   { value: 'shoes', label: 'Shoes', icon: '👟' },
   { value: 'other', label: 'Other', icon: '✨' },
 ];

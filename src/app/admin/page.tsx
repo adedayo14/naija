@@ -448,6 +448,17 @@ export default function AdminPage() {
                   />
                 </div>
                 <div>
+                  <label className="text-xs font-semibold text-neutral-600">Jacket</label>
+                  <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    value={shippingConfig.jacket}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, jacket: parseInt(e.target.value) || 0 })}
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
+                  />
+                </div>
+                <div>
                   <label className="text-xs font-semibold text-neutral-600">Shoes</label>
                   <input
                     type="number"
@@ -531,6 +542,7 @@ export default function AdminPage() {
                   <option value="trousers">Trousers</option>
                   <option value="jeans">Jeans</option>
                   <option value="cardigan">Cardigan</option>
+                  <option value="jacket">Jacket</option>
                   <option value="shoes">Shoes</option>
                   <option value="other">Other</option>
                 </select>
@@ -669,6 +681,7 @@ export default function AdminPage() {
                                 <option value="trousers">Trousers</option>
                                 <option value="jeans">Jeans</option>
                                 <option value="cardigan">Cardigan</option>
+                                <option value="jacket">Jacket</option>
                                 <option value="shoes">Shoes</option>
                                 <option value="other">Other</option>
                               </select>

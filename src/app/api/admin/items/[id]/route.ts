@@ -44,7 +44,7 @@ export async function PATCH(
     }
 
     if (body.category !== undefined) {
-      if (!['tshirt', 'shirt', 'trousers', 'jeans', 'cardigan', 'shoes', 'other'].includes(body.category)) {
+      if (!['tshirt', 'shirt', 'trousers', 'jeans', 'cardigan', 'jacket', 'shoes', 'other'].includes(body.category)) {
         return NextResponse.json({ error: 'Invalid category' }, { status: 400 });
       }
       item.category = body.category as Category;
