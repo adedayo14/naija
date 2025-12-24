@@ -11,7 +11,15 @@ interface ItemsBrowserProps {
 }
 
 export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
-  const [items, setItems] = useState<Item[]>(initialItems);
+  // Randomize items on mount
+  const [items, setItems] = useState<Item[]>(() => {
+    const shuffled = [...initialItems];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  });
   const [claimedItems, setClaimedItems] = useState<Item[]>([]);
   const [shippingConfig, setShippingConfig] = useState<ShippingConfig | null>(null);
 
