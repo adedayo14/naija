@@ -1,6 +1,6 @@
 #!/bin/bash
 
-API_URL="https://naija-phi.vercel.app/api/admin/items"
+API_URL="https://naija-five.vercel.app/api/admin/items"
 ADMIN_SECRET="admin123"
 
 # Function to add an item
