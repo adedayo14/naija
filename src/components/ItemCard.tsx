@@ -54,7 +54,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
 
         {/* Weight Badge */}
         <div className="absolute top-3 right-3">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/90 backdrop-blur-sm text-white shadow-lg">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/90 backdrop-blur-sm text-white shadow-lg">
             {item.weightKg}kg
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
       {/* Content */}
       <div className="p-5 space-y-3">
         <div>
-          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {item.title}
           </h3>
           {item.description && (
@@ -79,7 +79,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
             </svg>
             <span className="text-sm font-medium text-gray-700">Size {item.size}</span>
           </div>
-          <div className="flex items-center gap-1 text-emerald-700 font-bold text-sm">
+          <div className="flex items-center gap-1 text-blue-700 font-bold text-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -91,7 +91,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
         {!showClaimForm ? (
           <button
             onClick={() => setShowClaimForm(true)}
-            className="w-full mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            className="w-full mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -122,7 +122,7 @@ export default function ItemCard({ item, pointsCost, onClaim }: ItemCardProps) {
               <button
                 onClick={handleClaim}
                 disabled={claiming}
-                className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center justify-center gap-2"
               >
                 {claiming ? (
                   <>

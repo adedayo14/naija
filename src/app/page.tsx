@@ -25,13 +25,13 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600">
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-28 pb-32">
           <div className="text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-              <div className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></div>
+              <div className="w-2 h-2 rounded-full bg-blue-300 animate-pulse"></div>
               <span className="text-xs font-semibold uppercase tracking-wider text-white">Closet Drop</span>
             </div>
 
@@ -39,7 +39,7 @@ export default async function Home() {
               Pick What You Love
             </h1>
 
-            <p className="mx-auto max-w-2xl text-lg sm:text-xl text-emerald-50">
+            <p className="mx-auto max-w-2xl text-lg sm:text-xl text-blue-50">
               Curated pieces from my closet. Browse, filter, and claim your favorites.
             </p>
 
@@ -69,7 +69,7 @@ export default async function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-6 pb-20 -mt-8">
+      <div className="mx-auto max-w-7xl px-6 pb-20 mt-8">
         <ItemsBrowser initialItems={unclaimedItems} />
       </div>
     </div>

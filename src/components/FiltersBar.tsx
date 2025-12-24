@@ -46,8 +46,8 @@ export default function FiltersBar({
                 transition-all duration-200 transform hover:scale-105
                 ${
                   categoryFilter === cat.value
-                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/30'
-                    : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-emerald-500 hover:text-emerald-700 shadow-sm'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
+                    : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-500 hover:text-blue-700 shadow-sm'
                 }
               `}
             >
@@ -81,7 +81,7 @@ export default function FiltersBar({
               placeholder="e.g., M, L, UK 10, 32x32..."
               value={sizeFilter}
               onChange={(e) => onSizeChange(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all bg-white shadow-sm"
+              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm"
             />
             {sizeFilter && (
               <button
@@ -111,7 +111,7 @@ export default function FiltersBar({
             <select
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value as 'default' | 'name' | 'weight')}
-              className="w-full pl-12 pr-10 py-3 border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all bg-white shadow-sm appearance-none cursor-pointer"
+              className="w-full pl-12 pr-10 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm appearance-none cursor-pointer"
             >
               <option value="default">Latest First</option>
               <option value="name">Name (A–Z)</option>

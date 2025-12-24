@@ -19,29 +19,29 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
   const remainingPoints = POINTS_BUDGET - totalPoints;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 border-2 border-emerald-200 shadow-xl mb-8 animate-in slide-in-from-top duration-500">
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 border-2 border-blue-200 shadow-xl mb-8 animate-in slide-in-from-top duration-500">
       {/* Decorative Background Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM2ODJlZiIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
 
       <div className="relative p-6 sm:p-8">
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-emerald-900">Your Claimed Items</h2>
-              <p className="text-sm text-emerald-700 mt-0.5">
+              <h2 className="text-2xl font-bold text-blue-900">Your Claimed Items</h2>
+              <p className="text-sm text-blue-700 mt-0.5">
                 {claimedItems.length} {claimedItems.length === 1 ? 'item' : 'items'} reserved
               </p>
             </div>
           </div>
 
-          <div className="flex-shrink-0 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-emerald-300 shadow-sm">
-            <span className="text-sm font-semibold text-emerald-900">
+          <div className="flex-shrink-0 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-blue-300 shadow-sm">
+            <span className="text-sm font-semibold text-blue-900">
               🎉 Success!
             </span>
           </div>
@@ -52,7 +52,7 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
           {claimedItems.map((item) => (
             <div
               key={item.id}
-              className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-emerald-200 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-blue-200 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex gap-3">
                 <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
@@ -80,7 +80,7 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
                       {item.weightKg}kg
                     </span>
                     {shippingConfig && (
-                      <span className="flex items-center gap-1 text-emerald-700 font-semibold">
+                      <span className="flex items-center gap-1 text-blue-700 font-semibold">
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -95,21 +95,21 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
         </div>
 
         {/* Summary */}
-        <div className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 p-6 shadow-lg">
+        <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-6 shadow-lg">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-white">
             <div className="text-center sm:text-left">
-              <div className="text-emerald-100 text-sm font-medium mb-1">Total Items</div>
+              <div className="text-blue-100 text-sm font-medium mb-1">Total Items</div>
               <div className="text-3xl font-bold">{claimedItems.length}</div>
             </div>
 
             <div className="text-center sm:text-left">
-              <div className="text-emerald-100 text-sm font-medium mb-1">Points Used</div>
+              <div className="text-blue-100 text-sm font-medium mb-1">Points Used</div>
               <div className="text-3xl font-bold">{totalPoints.toLocaleString()}</div>
             </div>
 
             {shippingConfig && (
               <div className="text-center sm:text-left">
-                <div className="text-emerald-100 text-sm font-medium mb-1">Points Remaining</div>
+                <div className="text-blue-100 text-sm font-medium mb-1">Points Remaining</div>
                 <div className={`text-3xl font-bold ${remainingPoints < 0 ? 'text-red-300' : ''}`}>
                   {remainingPoints.toLocaleString()}
                 </div>
@@ -118,7 +118,7 @@ export default function ClaimedItemsPanel({ claimedItems, shippingConfig }: Clai
           </div>
 
           <div className="mt-6 pt-6 border-t border-white/20">
-            <p className="text-emerald-50 text-sm flex items-start gap-2">
+            <p className="text-blue-50 text-sm flex items-start gap-2">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
