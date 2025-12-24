@@ -34,16 +34,16 @@ export const DEFAULT_WEIGHTS: Record<Category, number> = {
   other: 0.40,
 };
 
-// Default points cost per category
+// Default points cost per category (based on £5.50/kg shipping)
 export const DEFAULT_SHIPPING_CONFIG: ShippingConfig = {
-  tshirt: 1000,
-  shirt: 1500,
-  trousers: 2000,
-  jeans: 2000,
-  cardigan: 1500,
-  shoes: 2500,
-  other: 1200,
+  tshirt: 200,    // 0.20kg = £1.10
+  shirt: 300,     // 0.30kg = £1.65
+  trousers: 450,  // 0.50kg = £2.75
+  jeans: 600,     // 0.55kg = £3.30
+  cardigan: 400,  // 0.35kg = £1.93
+  shoes: 900,     // 0.90kg = £4.95
+  other: 500,     // 0.40kg = £2.20
 };
 
-// Points budget per user
-export const POINTS_BUDGET = 20000;
+// Points budget per user (5000 pts = ~4.5kg = ~£25)
+export const POINTS_BUDGET = 5000;
