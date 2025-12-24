@@ -83,7 +83,7 @@ export default function FiltersBar({
               placeholder="e.g., M, L, UK 10, 32x32..."
               value={sizeFilter}
               onChange={(e) => onSizeChange(e.target.value)}
-              className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm"
+              className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder:text-gray-400 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all bg-white shadow-sm"
             />
             {sizeFilter && (
               <button

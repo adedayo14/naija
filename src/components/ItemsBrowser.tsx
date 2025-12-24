@@ -71,8 +71,12 @@ export default function ItemsBrowser({ initialItems }: ItemsBrowserProps) {
         return { success: false, error: 'Sorry, someone already claimed this item.' };
       }
 
+      if (response.status === 403 && data.error === 'budget_exceeded') {
+        return { success: false, error: data.message || 'You have reached your maximum budget.' };
+      }
+
       if (!response.ok) {
-        return { success: false, error: data.error || 'Failed to claim item' };
+        return { success: false, error: data.message || data.error || 'Failed to claim item' };
       }
 
       // Success - remove from available items and add to claimed

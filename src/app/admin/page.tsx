@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Item, Category, ShippingConfig, DEFAULT_WEIGHTS } from '@/types';
+import { Item, Category, ShippingConfig, DEFAULT_WEIGHTS, POINTS_BUDGET } from '@/types';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -172,6 +172,40 @@ export default function AdminPage() {
     }
   };
 
+  const handleUnclaimItem = async (id: string) => {
+    const secret = localStorage.getItem('adminSecret');
+    if (!secret) {
+      handleLogout();
+      return;
+    }
+
+    if (!confirm('Are you sure you want to unclaim this item?')) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/admin/items/${id}/unclaim`, {
+        method: 'POST',
+        headers: { 'x-admin-secret': secret },
+      });
+
+      if (res.status === 401) {
+        handleLogout();
+        return;
+      }
+
+      if (res.ok) {
+        const data = await res.json();
+        setItems(items.map(item => item.id === id ? data.item : item));
+      } else {
+        alert('Failed to unclaim item');
+      }
+    } catch (err) {
+      console.error('Error unclaiming item:', err);
+      alert('Error unclaiming item');
+    }
+  };
+
   const handleSaveShipping = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!shippingConfig) return;
@@ -269,7 +303,7 @@ export default function AdminPage() {
           <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-neutral-900 mb-4">Points Cost per Category</h2>
             <form onSubmit={handleSaveShipping} className="space-y-4">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-neutral-600">T-shirt</label>
                   <input
@@ -278,7 +312,7 @@ export default function AdminPage() {
                     min="0"
                     value={shippingConfig.tshirt}
                     onChange={(e) => setShippingConfig({ ...shippingConfig, tshirt: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                   />
                 </div>
                 <div>
@@ -289,7 +323,7 @@ export default function AdminPage() {
                     min="0"
                     value={shippingConfig.shirt}
                     onChange={(e) => setShippingConfig({ ...shippingConfig, shirt: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                   />
                 </div>
                 <div>
@@ -300,7 +334,29 @@ export default function AdminPage() {
                     min="0"
                     value={shippingConfig.trousers}
                     onChange={(e) => setShippingConfig({ ...shippingConfig, trousers: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-neutral-600">Jeans</label>
+                  <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    value={shippingConfig.jeans}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, jeans: parseInt(e.target.value) || 0 })}
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-neutral-600">Cardigan</label>
+                  <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    value={shippingConfig.cardigan}
+                    onChange={(e) => setShippingConfig({ ...shippingConfig, cardigan: parseInt(e.target.value) || 0 })}
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                   />
                 </div>
                 <div>
@@ -311,7 +367,7 @@ export default function AdminPage() {
                     min="0"
                     value={shippingConfig.shoes}
                     onChange={(e) => setShippingConfig({ ...shippingConfig, shoes: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                   />
                 </div>
                 <div>
@@ -322,7 +378,7 @@ export default function AdminPage() {
                     min="0"
                     value={shippingConfig.other}
                     onChange={(e) => setShippingConfig({ ...shippingConfig, other: parseInt(e.target.value) || 0 })}
-                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                    className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                   />
                 </div>
               </div>
@@ -380,11 +436,13 @@ export default function AdminPage() {
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value as Category })}
-                  className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium"
+                  className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-medium text-gray-900"
                 >
                   <option value="tshirt">T-shirt</option>
                   <option value="shirt">Shirt</option>
                   <option value="trousers">Trousers</option>
+                  <option value="jeans">Jeans</option>
+                  <option value="cardigan">Cardigan</option>
                   <option value="shoes">Shoes</option>
                   <option value="other">Other</option>
                 </select>
@@ -488,12 +546,24 @@ export default function AdminPage() {
                         )}
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleDeleteItem(item.id)}
-                      className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex gap-2">
+                      {item.claimedBy && (
+                        <button
+                          type="button"
+                          onClick={() => handleUnclaimItem(item.id)}
+                          className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700"
+                        >
+                          Unclaim
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteItem(item.id)}
+                        className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -503,8 +573,47 @@ export default function AdminPage() {
           {/* Summary for claimed items */}
           {shippingConfig && items.some(i => i.claimedBy) && (
             <div className="mt-6 border-t pt-6">
-              <h3 className="font-semibold mb-3">Claims Summary</h3>
-              <div className="text-sm space-y-1">
+              <h3 className="font-semibold mb-3">Claims Summary by User</h3>
+              <div className="space-y-3">
+                {(() => {
+                  const userGroups = items.filter(i => i.claimedBy).reduce((acc, item) => {
+                    const userName = item.claimedBy!;
+                    if (!acc[userName]) {
+                      acc[userName] = [];
+                    }
+                    acc[userName].push(item);
+                    return acc;
+                  }, {} as Record<string, Item[]>);
+
+                  return Object.entries(userGroups).map(([userName, userItems]) => {
+                    const totalPoints = userItems.reduce((sum, i) => sum + shippingConfig[i.category], 0);
+                    const isOverBudget = totalPoints > POINTS_BUDGET;
+
+                    return (
+                      <div key={userName} className={`p-3 rounded-lg ${isOverBudget ? 'bg-red-50 border border-red-200' : 'bg-gray-50'}`}>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-semibold">{userName}</p>
+                            <p className="text-xs text-gray-600">{userItems.length} items</p>
+                          </div>
+                          <div className="text-right">
+                            <p className={`font-bold ${isOverBudget ? 'text-red-600' : 'text-gray-900'}`}>
+                              {totalPoints} / {POINTS_BUDGET} pts
+                            </p>
+                            {isOverBudget && (
+                              <p className="text-xs text-red-600 font-semibold">
+                                Over by {totalPoints - POINTS_BUDGET}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
+
+              <div className="mt-4 pt-4 border-t text-sm space-y-1">
                 <div className="flex justify-between">
                   <span>Total Items Claimed:</span>
                   <span className="font-semibold">{items.filter(i => i.claimedBy).length}</span>
@@ -516,9 +625,9 @@ export default function AdminPage() {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Total Shipping:</span>
+                  <span>Total Points:</span>
                   <span className="font-semibold">
-                    £{items.filter(i => i.claimedBy).reduce((sum, i) => sum + shippingConfig[i.category], 0).toFixed(2)}
+                    {items.filter(i => i.claimedBy).reduce((sum, i) => sum + shippingConfig[i.category], 0)}
                   </span>
                 </div>
               </div>
