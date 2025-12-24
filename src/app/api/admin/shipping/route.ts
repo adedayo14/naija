@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     // Validate the payload matches ShippingConfig structure
-    const categories = ['tshirt', 'shirt', 'trousers', 'shoes', 'other'];
+    const categories = ['tshirt', 'shirt', 'trousers', 'jeans', 'cardigan', 'shoes', 'other'];
     for (const category of categories) {
       if (typeof body[category] !== 'number' || body[category] < 0) {
         return NextResponse.json({
@@ -45,6 +45,8 @@ export async function POST(req: NextRequest) {
       tshirt: body.tshirt,
       shirt: body.shirt,
       trousers: body.trousers,
+      jeans: body.jeans,
+      cardigan: body.cardigan,
       shoes: body.shoes,
       other: body.other,
     };
